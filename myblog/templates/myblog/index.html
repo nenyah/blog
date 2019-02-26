@@ -1,0 +1,14 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'myblog/css/semantic.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'myblog/css/style.css' %}">
+
+{% if post_list %}
+<ul>
+    {% for post in post_list %}
+    <li><a href="{% url 'blog:detail' post.id %}">{{ post.title }}</a><br />{{ post.content }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No post are available.</p>
+{% endif %}
