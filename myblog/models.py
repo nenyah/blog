@@ -135,8 +135,9 @@ class Comment(models.Model):
     '''评论模型'''
     post = models.ForeignKey(Post, verbose_name='博客', on_delete=models.CASCADE)
     user = models.CharField('评论者', blank=True, max_length=50)
-    pub_date = models.DateTimeField('发布时间')
+    pub_date = models.DateTimeField('发布时间', auto_now_add=True)
     content = models.TextField('内容')
+    email = models.EmailField('邮箱', max_length=50)
 
     def __str__(self):
         return self.user

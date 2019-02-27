@@ -1,0 +1,63 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'myblog/css/semantic.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'myblog/css/style.css' %}">
+
+<div class="ui container segment">
+    <div class="ui header">
+        {{ post.title }}
+    </div>
+    <p>
+        {{ post.content }}
+    </p>
+    <i class="tags icon"></i>
+    {% for tag in tags %}
+    <div class="ui inverted black label">
+        <a href="{% url 'blog:tag' tag.id %}">{{ tag.name }}</a>
+    </div>
+    {% empty %}
+    {% endfor %}
+</div>
+<div class="ui container segment">
+    <h3 class="ui header">发表评论</h3>
+    <div class="ui comments">
+        {% for comment in comments %}
+        <div class="comment">
+            <div class="avatar">
+                <img src="https://semantic-ui.com/images/avatar/small/matt.jpg" alt="" style="width:25px;height:25px;">
+            </div>
+            <div class="content">
+                <a href="">{{ comment.user }}</a>
+                <div class="metadata">
+                    <div class="date">2 days ago</div>
+                </div>
+                <p class="text">{{ comment.content }}</p>
+            </div>
+        </div>
+        {% empty %}
+        {% endfor %}
+
+    </div>
+    <form class="ui form" method="post">
+        <!-- <div class="field">
+            <textarea></textarea>
+        </div>
+        <div class="field">
+            <div class="ui fluid left icon input">
+                <input type="text" placeholder="昵称">
+                <i class="users icon"></i>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui fluid left icon input">
+                <input type="text" placeholder="邮箱">
+                <i class="mail icon"></i>
+            </div>
+        </div> -->
+        {{ form.as_p }}
+
+        {% csrf_token %}
+        <button class="fluid ui blue button" type="submit">发表评论</button>
+    </form>
+
+</div>
