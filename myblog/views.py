@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -17,7 +18,7 @@ def index(request):
 # 文章详情页
 def detail(request, post_id):
     post = Post.objects.get(id=post_id)
-    comments = Comment.objects.all()
+    comments = Comment.objects.filter(post=post)
     if request.method == 'GET':
         form = CommentForm
     if request.method == 'POST':
@@ -26,8 +27,13 @@ def detail(request, post_id):
             user = form.cleaned_data['user']
             content = form.cleaned_data['content']
             email = form.cleaned_data['email']
+            avatar = f'images/avatar/avatar{random.randint(0,24)}.jpg'
             comment = Comment(
-                post=post, user=user, content=content, email=email)
+                post=post,
+                user=user,
+                content=content,
+                email=email,
+                avatar=avatar)
             comment.save()
             return redirect(to='blog:detail', post_id=post_id)
             # print(user, content, email)

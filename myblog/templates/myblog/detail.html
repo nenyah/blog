@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'myblog/css/semantic.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'myblog/css/style.css' %}">
-
+<!-- 文章部分 -->
 <div class="ui container segment">
     <div class="ui header">
         {{ post.title }}
@@ -18,16 +18,17 @@
     {% empty %}
     {% endfor %}
 </div>
+<!-- 评论部分 -->
 <div class="ui container segment">
     <h3 class="ui header">发表评论</h3>
     <div class="ui comments">
         {% for comment in comments %}
         <div class="comment">
             <div class="avatar">
-                <img src="https://semantic-ui.com/images/avatar/small/matt.jpg" alt="" style="width:25px;height:25px;">
+                <img src="../../static/myblog/{{ comment.avatar }}" alt="" style="width:50px;height:50px;">
             </div>
-            <div class="content">
-                <a href="">{{ comment.user }}</a>
+            <div class="content" style="margin-left:4em;">
+                <div class="header">{{ comment.user }}</div>
                 <div class="metadata">
                     <div class="date">2 days ago</div>
                 </div>
@@ -38,23 +39,45 @@
         {% endfor %}
 
     </div>
-    <form class="ui form" method="post">
-        <!-- <div class="field">
-            <textarea></textarea>
+    <form class="ui error form" method="post">
+        {% if form.errors %}
+        <div class="ui error message">
+            {{ form.errors }}
+        </div>
+        <div class="{{ form.content.errors|yesno:'error,' }} field">
+            {{ form.content }}
+        </div>
+        <div class="{{ form.user.errors|yesno:'error,' }} field">
+            <div class="ui left icon input">
+                {{ form.user }}
+                <i class="user icon"></i>
+            </div>
+        </div>
+        <div class="{{ form.email.errors|yesno:'error,' }} field">
+            <div class="ui left icon input">
+                {{ form.email }}
+                <i class="envelope outline icon"></i>
+            </div>
+        </div>
+        {% else %}
+
+        <div class="field">
+            {{ form.content }}
         </div>
         <div class="field">
-            <div class="ui fluid left icon input">
-                <input type="text" placeholder="昵称">
-                <i class="users icon"></i>
+            <div class="ui left icon input">
+                {{ form.user }}
+                <i class="user icon"></i>
             </div>
         </div>
         <div class="field">
-            <div class="ui fluid left icon input">
-                <input type="text" placeholder="邮箱">
-                <i class="mail icon"></i>
+            <div class="ui left icon input">
+                {{ form.email }}
+                <i class="envelope outline icon"></i>
             </div>
-        </div> -->
-        {{ form.as_p }}
+        </div>
+
+        {% endif %}
 
         {% csrf_token %}
         <button class="fluid ui blue button" type="submit">发表评论</button>
