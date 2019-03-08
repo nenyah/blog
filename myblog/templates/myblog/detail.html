@@ -1,7 +1,7 @@
-{% load static %}
+{% extends "myblog/base.html" %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'myblog/css/semantic.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'myblog/css/style.css' %}">
+{% block title %}Python与跨境电商{% endblock %}
+{% block content %}
 <!-- 文章部分 -->
 <div class="ui container segment">
     <div class="ui header">
@@ -84,3 +84,4 @@
     </form>
 
 </div>
+{% endblock %}

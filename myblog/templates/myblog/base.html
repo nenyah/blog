@@ -1,0 +1,34 @@
+<!DOCTYPE html>{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}My amazing site{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'myblog/css/semantic.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'myblog/css/style.css' %}">
+</head>
+
+<body>
+    <div id="menu">
+        {% include 'myblog\menu.html' %}
+    </div>
+
+    <div id="content" class="ui container">
+        <div class="ui grid">
+            <section id="main" class="twelve wide column">
+                {% block content %}{% endblock %}
+            </section>
+            <aside id="widget-area" class="four wide column">
+                {% include 'myblog\aside.html' %}
+            </aside>
+        </div>
+
+    </div>
+    <div id="footer">
+        {% include 'myblog\footer.html' %}
+    </div>
+</body>
+
+</html>
